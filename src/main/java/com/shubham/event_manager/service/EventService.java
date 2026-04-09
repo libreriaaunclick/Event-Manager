@@ -1,13 +1,16 @@
 package com.shubham.event_manager.service;
 
-import com.shubham.event_manager.entity.Event;
-
+import com.shubham.event_manager.dto.EventDTO;
 import java.util.List;
 
 public interface EventService {
-    List<Event> getAllEvents();
-    Event getEventById(Long id);
-    Event createEvent(Event event);
-    Event updateEvent(Long id, Event event);
+    List<EventDTO> getAllEvents();
+
+    EventDTO getEventById(Long id);
+
+    EventDTO createEvent(EventDTO event);
+
+    EventDTO updateEvent(Long id, EventDTO event);
+
     void deleteEvent(Long id);
 }
