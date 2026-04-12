@@ -1,5 +1,6 @@
 package com.shubham.event_manager.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -30,5 +31,8 @@ public class EventDTO {
 
     @Min(value = 1, message = "Capacity cannot be less than 1")
     private Integer capacity;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private LocalDateTime createdAt;
 
 }
