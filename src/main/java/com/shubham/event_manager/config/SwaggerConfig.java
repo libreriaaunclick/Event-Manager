@@ -18,8 +18,8 @@ public class SwaggerConfig {
                         .description("REST API for managing events — Phase 3")
                         .version("3.0.0")
                         .contact(new Contact()
-                                .name("Your Name")
-                                .email("your@email.com"))
+                                .name("Shubham Kale")
+                                .email("kaleshubham602@gmail.com"))
                         .license(new License()
                                 .name("MIT License")));
     }
