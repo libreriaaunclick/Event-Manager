@@ -1,11 +1,17 @@
 package com.shubham.event_manager.service;
 
+
+import com.shubham.event_manager.document.EventDocument;
 import com.shubham.event_manager.dto.EventDTO;
 import com.shubham.event_manager.entity.Event;
 import com.shubham.event_manager.exception.ResourceNotFoundException;
 import com.shubham.event_manager.mapper.EventMapper;
-import com.shubham.event_manager.repository.EventRepository;
+import com.shubham.event_manager.repository.jpa.EventRepository;
+import com.shubham.event_manager.repository.elasticsearch.EventSearchRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,12 +19,18 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class EventServiceImpl implements EventService{
-    private final EventRepository eventRepository;
-    private final EventMapper eventMapper;
+@Slf4j
+public class EventServiceImpl implements EventService {
+
+    private final EventRepository       eventRepository;
+    private final EventSearchRepository eventSearchRepository;
+    private final EventMapper           eventMapper;
+    private final EmailService          emailService;
 
     @Override
+    @Cacheable(value = "events")
     public List<EventDTO> getAllEvents() {
+        log.info("Cache miss — fetching all events from database");
         return eventRepository.findAll()
                 .stream()
                 .map(eventMapper::toDTO)
@@ -26,37 +38,70 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
+    @Cacheable(value = "event", key = "#id")
     public EventDTO getEventById(Long id) {
+        log.info("Cache miss — fetching event {} from database", id);
         Event event = eventRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException(
-                "Event not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Event not found with id: " + id));
         return eventMapper.toDTO(event);
     }
 
     @Override
-    public EventDTO createEvent(EventDTO eventDTO) {
+    @CacheEvict(value = {"events", "event"}, allEntries = true)
+    public EventDTO createEvent(EventDTO eventDTO, String userEmail) {
         Event event = eventMapper.toEntity(eventDTO);
         Event saved = eventRepository.save(event);
-        return eventMapper.toDTO(saved);
+
+        EventDocument document = mapToDocument(saved);
+        eventSearchRepository.save(document);
+        log.info("Event indexed in Elasticsearch: {}", saved.getId());
+
+        EventDTO result = eventMapper.toDTO(saved);
+        emailService.sendEventConfirmation(result, userEmail);
+
+        return result;
     }
 
     @Override
+    @CacheEvict(value = {"events", "event"}, allEntries = true)
     public EventDTO updateEvent(Long id, EventDTO eventDTO) {
         Event existing = eventRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Event not found with id:" + id));
-        eventMapper.updateEventFromDTO(eventDTO,existing);
+                        "Event not found with id: " + id));
+        eventMapper.updateEntityFromDTO(eventDTO, existing);
         Event saved = eventRepository.save(existing);
+
+        eventSearchRepository.save(mapToDocument(saved));
+
         return eventMapper.toDTO(saved);
-
-
     }
 
     @Override
+    @CacheEvict(value = {"events", "event"}, allEntries = true)
     public void deleteEvent(Long id) {
         Event existing = eventRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Event not found with id:" + id));
+                        "Event not found with id: " + id));
         eventRepository.delete(existing);
+        eventSearchRepository.deleteById(String.valueOf(id));
+        log.info("Event {} deleted from MySQL and Elasticsearch", id);
+    }
+
+    @Override
+    public List<EventDocument> searchEvents(String query) {
+        log.info("Searching Elasticsearch for: {}", query);
+        return eventSearchRepository.fuzzySearch(query);
+    }
+
+    private EventDocument mapToDocument(Event event) {
+        return new EventDocument(
+                String.valueOf(event.getId()),
+                event.getTitle(),
+                event.getDescription(),
+                event.getLocation(),
+                event.getEventDate(),
+                event.getCapacity()
+        );
     }
 }
