@@ -1,17 +1,43 @@
 package com.shubham.event_manager.mapper;
 
-
 import com.shubham.event_manager.dto.EventDTO;
 import com.shubham.event_manager.entity.Event;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
-public interface EventMapper {
+@Component
+public class EventMapper {
 
-    EventDTO toDTO(Event event);
+    public EventDTO toDTO(Event event) {
+        if (event == null) return null;
+        EventDTO dto = new EventDTO();
+        dto.setId(event.getId());
+        dto.setTitle(event.getTitle());
+        dto.setDescription(event.getDescription());
+        dto.setEventDate(event.getEventDate());
+        dto.setLocation(event.getLocation());
+        dto.setCapacity(event.getCapacity());
+        dto.setCreatedAt(event.getCreatedAt());
+        return dto;
+    }
 
-    Event toEntity(EventDTO eventDTO);
+    public Event toEntity(EventDTO dto) {
+        if (dto == null) return null;
+        Event event = new Event();
+        event.setId(dto.getId());
+        event.setTitle(dto.getTitle());
+        event.setDescription(dto.getDescription());
+        event.setEventDate(dto.getEventDate());
+        event.setLocation(dto.getLocation());
+        event.setCapacity(dto.getCapacity());
+        return event;
+    }
 
-    void updateEntityFromDTO(EventDTO eventDTO, @MappingTarget Event event);
+    public void updateEntityFromDTO(EventDTO dto, Event event) {
+        if (dto == null) return;
+        event.setTitle(dto.getTitle());
+        event.setDescription(dto.getDescription());
+        event.setEventDate(dto.getEventDate());
+        event.setLocation(dto.getLocation());
+        event.setCapacity(dto.getCapacity());
+    }
 }
